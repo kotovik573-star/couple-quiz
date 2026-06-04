@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Наши Опросы</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.97);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #764ba2;
+            margin-bottom: 10px;
+            font-size: 1.8em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.9em;
+        }
+
+        .menu { display: grid; gap: 15px; margin-bottom: 20px; }
+
+        .btn {
+            padding: 18px 24px;
+            border: none;
+            border-radius: 16px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+        .btn-create { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+        .btn-join { background: #f0f0f0; color: #333; }
+        .btn-back { background: #eee; color: #666; font-size: 0.9em; padding: 12px 20px; }
+        .btn-secondary { background: #e8f5e9; color: #2e7d32; }
+
+        .theme-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .theme-btn {
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 16px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .theme-btn:hover, .theme-btn.selected {
+            border-color: #667eea;
+            background: #f8f6ff;
+            transform: scale(1.02);
+        }
+
+        .theme-btn .emoji { font-size: 2em; display: block; margin-bottom: 8px; }
+        .theme-btn .name { font-weight: 600; color: #333; font-size: 0.9em; }
+
+        .room-code {
+            background: #f8f6ff;
+            border: 2px dashed #667eea;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .code-display {
+            font-size: 2.2em;
+            font-weight: bold;
+            color: #764ba2;
+            letter-spacing: 6px;
+            margin: 15px 0;
+            font-family: monospace;
+            word-break: break-all;
+        }
+
+        .input-group { margin: 20px 0; }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 1.1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .question-card {
+            background: #f8f9fa;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .question-number {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.15em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #222;
+            line-height: 1.4;
+        }
+
+        .options { display: grid; gap: 10px; }
+
+        .option {
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+            font-size: 1em;
+            text-align: left;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f6ff;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .results-header { text-align: center; margin-bottom: 30px; }
+
+        .match-percentage {
+            font-size: 3.5em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 10px 0;
+        }
+
+        .match-label { color: #666; font-size: 1em; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 25px 0;
+        }
+
+        .stat-box {
+            background: #f8f6ff;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .stat-label { color: #666; font-size: 0.8em; margin-top: 5px; }
+
+        .comp-item {
+            background: white;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 12px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s;
+        }
+
+        .comp-item.match { border-color: #4caf50; background: #f1f8e9; }
+        .comp-item.mismatch { border-color: #ff9800; background: #fff8e1; }
+
+        .comp-question {
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 0.95em;
+        }
+
+        .comp-answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .comp-answer {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+
+        .comp-answer.you { background: #667eea; color: white; }
+        .comp-answer.partner { background: #764ba2; color: white; }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .badge.match { background: #4caf50; color: white; }
+        .badge.mismatch { background: #ff9800; color: white; }
+
+        .waiting-screen { text-align: center; padding: 30px; }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #e0e0e0;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .name-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-weight: 500;
+            z-index: 1000;
+            animation: slideUp 0.3s ease;
+            font-size: 0.9em;
+            max-width: 90%;
+            text-align: center;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateX(-50%) translateY(100px); opacity: 0; }
+            to { transform: translateX(-50%) translateY(0); opacity: 1; }
+        }
+
+        .history-list { margin-top: 20px; }
+
+        .history-item {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 10px;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .history-item:hover {
+            border-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .share-section {
+            background: #f0f0f0;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .share-link {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.85em;
+            word-break: break-all;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 20px; border-radius: 20px; }
+            h1 { font-size: 1.5em; }
+            .theme-grid { grid-template-columns: 1fr; }
+            .name-inputs { grid-template-columns: 1fr; }
+            .code-display { font-size: 1.8em; letter-spacing: 4px; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .comp-answers { grid-template-columns: 1fr; }
+        }
+    </style>
+<base target="_blank">
+</head>
+<body>
+    <div class="container" id="app"></div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+<script>
+// ==================== FIREBASE НАСТРОЙКА ====================
+// Бесплатная база данных (Realtime Database)
+const firebaseConfig = {
+    apiKey: "AIzaSyDummyKeyForCoupleQuiz",
+    authDomain: "couple-quiz-demo.firebaseapp.com",
+    databaseURL: "https://couple-quiz-demo-default-rtdb.firebaseio.com",
+    projectId: "couple-quiz-demo",
+    storageBucket: "couple-quiz-demo.appspot.com",
+    messagingSenderId: "123456789",
+    appId: "1:123456789:web:abcdef123456"
+};
+
+// Инициализация Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// ==================== БАЗА ВОПРОСОВ ====================
+const questionDB = {
+    relationships: [
+        { q: "Как часто ты хочешь говорить о чувствах?", a: ["Каждый день", "Раз в неделю", "Когда накопится", "Почти никогда"] },
+        { q: "Что для тебя важнее в конфликте?", a: ["Поговорить сразу", "Дать время остыть", "Найти компромисс", "Избежать ссоры"] },
+        { q: "Как ты показываешь любовь?", a: ["Слова и комплименты", "Дела и помощь", "Физическую близость", "Время вместе"] },
+        { q: "Что больше всего раздражает в отношениях?", a: ["Ревность", "Невнимание", "Критика", "Молчание"] },
+        { q: "Какой идеальный вечер вдвоём?", a: ["Ужин при свечах", "Смотреть сериалы", "Гулять до утра", "Тихо рядом заниматься своим"] },
+        { q: "Что делает тебя счастливым в паре?", a: ["Нежность", "Смех и шутки", "Поддержка", "Страсть"] },
+        { q: "Как ты реагируешь на обиду?", a: ["Говорю сразу", "Молчу и коплю", "Плачу", "Отдаляюсь"] },
+        { q: "Что важнее — быть правым или быть вместе?", a: ["Быть вместе всегда", "Зависит от ситуации", "Правда важна", "Не люблю спорить"] },
+        { q: "Как часто нужно говорить 'люблю'?", a: ["Каждый день", "Когда чувствую", "На праздники", "Делами доказывать"] },
+        { q: "Что для тебя предательство?", a: ["Измена", "Ложь", "Игнорирование", "Сравнение с бывшими"] },
+        { q: "Какой подарок тебе приятнее?", a: ["Что-то сделанное руками", "Дорогой сюрприз", "Впечатление/поездка", "Просто провести время"] },
+        { q: "Что ты ценишь больше?", a: ["Честность", "Заботу", "Юмор", "Независимость"] },
+        { q: "Как относишься к личному пространству?", a: ["Нужно каждому", "Всё должно быть общим", "По ситуации", "Главное — доверие"] },
+        { q: "Что делает отношения крепкими?", a: ["Разговоры", "Секс", "Общие цели", "Принятие друг друга"] },
+        { q: "Как ты переживаешь расставание?", a: ["Очень тяжело", "Отвлекаюсь делами", "Общаюсь с друзьями", "Пишу/рисую"] },
+        { q: "Что важно в будущем партнёре?", a: ["Амбиции", "Доброта", "Внешность", "Характер"] },
+        { q: "Как относишься к прошлым отношениям?", a: ["Не интересуют", "Хочу знать всё", "Важен опыт", "Лучше не вспоминать"] },
+        { q: "Что ты думаешь о совместном бюджете?", a: ["Общий счёт", "Раздельный", "Общий + личные", "Кто-то один управляет"] },
+        { q: "Какой знак внимания тебе важен?", a: ["Утреннее сообщение", "Объятия", "Помощь без просьбы", "Сюрпризы"] },
+        { q: "Что разрушает любовь?", a: ["Рутина", "Ложь", "Отсутствие секса", "Недопонимание"] },
+        { q: "Как ты ревнуешь?", a: ["Сильно и открыто", "Тихо и мучительно", "Не ревную", "Шучу об этом"] },
+        { q: "Что важнее — страсть или дружба?", a: ["Страсть", "Дружба", "И то, и другое", "Меняется со временем"] },
+        { q: "Как относишься к ссорам?", a: ["Нужны для ясности", "Ненавижу", "Избегаю", "Конструктивно"] },
+        { q: "Что ты хочешь услышать чаще?", a: ["'Ты красивый'", "'Я горжусь тобой'", "'Я рядом'", "'Спасибо'"] },
+        { q: "Какой момент самый романтичный?", a: ["Рассвет вместе", "Дождь под зонтом", "Танец на кухне", "Письмо от руки"] }
+    ],
+    daily: [
+        { q: "Как начинается твой идеальный день?", a: ["Ранний подъём и кофе", "Долгий сон", "Спорт/зарядка", "Завтрак в постели"] },
+        { q: "Что ты делаешь после работы?", a: ["Встречаюсь с друзьями", "Тренируюсь", "Смотрю сериалы", "Читаю/учусь"] },
+        { q: "Какой твой идеальный выходной?", a: ["Активный отдых", "Дома ничего не делать", "Поход/природа", "Шопинг/город"] },
+        { q: "Что раздражает в быту больше всего?", a: ["Невыключенный свет", "Грязная посуда", "Разбросанные вещи", "Шум"] },
+        { q: "Как ты относишься к готовке?", a: ["Люблю!", "Готовлю если надо", "Заказываю еду", "Ем что дадут"] },
+        { q: "Какой у тебя режим сна?", a: ["Сова", "Жаворонок", "Между ними", "Хаос"] },
+        { q: "Что ты делаешь в пробках?", a: ["Музыка/подкасты", "Злюсь", "Звоню близким", "Мечтаю"] },
+        { q: "Как ты предпочитаешь отдыхать?", a: ["Один", "С партнёром", "В компании", "Зависит от настроения"] },
+        { q: "Что важнее в квартире?", a: ["Уют", "Порядок", "Красивый интерьер", "Функциональность"] },
+        { q: "Как ты относишься к планам?", a: ["Планирую всё", "Спонтанность", "Базовый план", "Живу день за днём"] },
+        { q: "Что ты делаешь по воскресеньям?", a: ["Готовлюсь к неделе", "Встречаюсь с семьёй", "Сплю до обеда", "Хобби"] },
+        { q: "Какой у тебя отношение к уборке?", a: ["Каждый день", "Раз в неделю", "Когда придётся", "Ненавижу"] },
+        { q: "Что ты обычно ешь на завтрак?", a: ["Кашу/яйца", "Только кофе", "Сэндвич", "Ничего"] },
+        { q: "Как ты проводишь вечер пятницы?", a: ["Тусовка", "Домашний ужин", "Сон", "Хобби"] },
+        { q: "Что важнее в жизни?", a: ["Карьера", "Семья", "Хобби", "Баланс"] },
+        { q: "Как ты относишься к шопингу?", a: ["Люблю!", "Ненавижу", "Онлайн только", "По необходимости"] },
+        { q: "Что ты делаешь, когда скучно?", a: ["Соцсети", "Книги/фильмы", "Творчество", "Звоню кому-то"] },
+        { q: "Какой у тебя стиль одежды?", a: ["Спортивный", "Классический", "Уличный", "Что удобно"] },
+        { q: "Что важнее в транспорте?", a: ["Быстрота", "Комфорт", "Дешевизна", "Приватность"] },
+        { q: "Как ты относишься к домашним животным?", a: ["Обожаю", "Нейтрально", "Аллергия/страх", "Зависит от животного"] },
+        { q: "Что ты делаешь перед сном?", a: ["Читаю", "Смотрю телефон", "Медитирую", "Сразу засыпаю"] },
+        { q: "Какой у тебя идеальный отпуск?", a: ["Море/пляж", "Горы/поход", "Город/музеи", "Дома"] },
+        { q: "Что раздражает в соседях?", a: ["Шум", "Запахи", "Невнимание", "Нет такого"] },
+        { q: "Как ты относишься к соцсетям?", a: ["Живу там", "Постоянно", "Редко", "Не пользуюсь"] },
+        { q: "Что важнее в телефоне?", a: ["Камера", "Батарея", "Память", "Дизайн"] }
+    ],
+    intimate: [
+        { q: "Как часто ты хочешь близости?", a: ["Каждый день", "Несколько раз в неделю", "Раз в неделю", "По настроению"] },
+        { q: "Что важнее в постели?", a: ["Нежность", "Страсть", "Эксперименты", "Эмоциональная связь"] },
+        { q: "Как ты относишься к ролевым играм?", a: ["Обожаю", "Готов попробовать", "Нейтрально", "Не моё"] },
+        { q: "Что тебя заводит больше всего?", a: ["Слова/голос", "Прикосновения", "Взгляд", "Атмосфера"] },
+        { q: "Какой идеальный прелюдии?", a: ["Долгая и чувственная", "Страстная и быстрая", "Неожиданная", "Романтическая"] },
+        { q: "Как ты относишься к сексу по утрам?", a: ["Люблю!", "Иногда", "Нет, сплю", "Зависит от настроения"] },
+        { q: "Что важнее — качество или количество?", a: ["Качество", "Количество", "И то, и другое", "Главное — взаимность"] },
+        { q: "Как ты относишься к публичным проявлениям?", a: ["За!", "Только нежные", "Нет", "Зависит от места"] },
+        { q: "Что после близости?", a: ["Объятия и разговор", "Сон", "Еда", "Душ"] },
+        { q: "Как ты относишься к игрушкам?", a: ["Использую", "Хочу попробовать", "Нейтрально", "Не интересно"] },
+        { q: "Что важнее в партнёре?", a: ["Опыт", "Внимание", "Фантазия", "Доверие"] },
+        { q: "Как ты относишься к обсуждению желаний?", a: ["Открыто говорю", "Намекаю", "Стыдно", "Действиями показываю"] },
+        { q: "Какое место для близости кроме спальни?", a: ["Кухня", "Ванная", "Гостиная", "Не в квартире"] },
+        { q: "Что тебя отталкивает?", a: ["Грубость", "Пассивность", "Спешка", "Невнимание"] },
+        { q: "Как ты относишься к белью?", a: ["Важно!", "Приятно", "Всё равно", "Удобство важнее"] },
+        { q: "Что важнее — визуал или тактиль?", a: ["Визуал", "Тактиль", "Звук", "Запах"] },
+        { q: "Как ты относишься к свечам/музыке?", a: ["Обязательно", "Приятно", "Всё равно", "Смешно"] },
+        { q: "Что после конфликта?", a: ["Мирная близость", "Нужно время", "Разговор", "Забыть"] },
+        { q: "Как ты относишься к экспериментам?", a: ["Всегда за", "Осторожно", "По доверию", "Классика лучше"] },
+        { q: "Что важнее — отдавать или получать?", a: ["Отдавать", "Получать", "И то, и другое", "Взаимность"] },
+        { q: "Как ты относишься к поцелуям?", a: ["Обожаю!", "Важны", "По настроению", "Не главное"] },
+        { q: "Что снижает желание?", a: ["Усталость", "Стресс", "Ссора", "Рутина"] },
+        { q: "Какой твой любимый момент?", a: ["Начало", "Процесс", "Кульминация", "После"] },
+        { q: "Как ты относишься к массажу?", a: ["Обожаю", "Приятно", "Иногда", "Щекочет"] },
+        { q: "Что важнее — эмоции или физика?", a: ["Эмоции", "Физика", "Смесь", "Зависит от дня"] }
+    ],
+    preferences: [
+        { q: "Какой жанр фильмов?", a: ["Драма", "Комедия", "Боевик", "Ужасы"] },
+        { q: "Какой способ провести вечер?", a: ["Кино", "Ресторан", "Дома", "Прогулка"] },
+        { q: "Какая музыка?", a: ["Поп", "Рок", "Джаз", "Электро"] },
+        { q: "Какой сезон года?", a: ["Весна", "Лето", "Осень", "Зима"] },
+        { q: "Какой напиток?", a: ["Кофе", "Чай", "Вино", "Сок"] },
+        { q: "Какой спорт?", a: ["Бег", "Плавание", "Йога", "Теннис"] },
+        { q: "Какой способ путешествовать?", a: ["Самолёт", "Поезд", "Машина", "Пешком"] },
+        { q: "Какой тип отдыха?", a: ["Пляж", "Горы", "Город", "Деревня"] },
+        { q: "Какая еда на ужин?", a: ["Итальянская", "Азиатская", "Домашняя", "Фастфуд"] },
+        { q: "Какой досуг дома?", a: ["Сериалы", "Игры", "Книги", "Творчество"] },
+        { q: "Какой тип свидания?", a: ["Романтичное", "Активное", "Уютное", "Спонтанное"] },
+        { q: "Какой подарок?", a: ["Цветы", "Гаджет", "Украшение", "Впечатление"] },
+        { q: "Какая погода?", a: ["Солнечная", "Дождливая", "Снежная", "Ветреная"] },
+        { q: "Какой способ общения?", a: ["Звонок", "Сообщения", "Видео", "Вживую"] },
+        { q: "Какой праздник?", a: ["НГ", "ДР", "14 февраля", "8 марта"] },
+        { q: "Какой жанр книг?", a: ["Детектив", "Любовный", "Фэнтези", "Нон-фикшн"] },
+        { q: "Какой стиль свидания?", a: ["Классический", "Необычный", "Домашний", "Экстремальный"] },
+        { q: "Какой десерт?", a: ["Торт", "Мороженое", "Фрукты", "Не ем сладкое"] },
+        { q: "Какое время суток?", a: ["Утро", "День", "Вечер", "Ночь"] },
+        { q: "Какой вид транспорта?", a: ["Метро", "Такси", "Своя машина", "Велосипед"] },
+        { q: "Какой тип юмора?", a: ["Сарказм", "Абсурд", "Чёрный", "Добрый"] },
+        { q: "Какой способ расслабиться?", a: ["Ванна", "Медитация", "Спорт", "Сон"] },
+        { q: "Какой соцсеть?", a: ["Telegram", "Instagram", "TikTok", "Никакой"] },
+        { q: "Какой тип фото?", a: ["Селфи", "Профессиональные", "Природа", "Не люблю фото"] },
+        { q: "Какой способ знакомства?", a: ["В интернете", "Через друзей", "Случайно", "На работе"] }
+    ]
+};
+
+const themes = {
+    relationships: { name: "Отношения", emoji: "💕" },
+    daily: { name: "Повседневность", emoji: "🏠" },
+    intimate: { name: "Интим", emoji: "🔥" },
+    preferences: { name: "Предпочтения", emoji: "✨" }
+};
+
+// ==================== СОСТОЯНИЕ ====================
+let state = {
+    currentView: 'menu',
+    room: null,
+    currentQuestion: 0,
+    answers: [],
+    userName: '',
+    partnerName: '',
+    roomRef: null,
+    unsubscribe: null
+};
+
+// ==================== УТИЛИТЫ ====================
+function generateCode() {
+    const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+    let code = '';
+    for (let i = 0; i < 3; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    code += '-';
+    for (let i = 0; i < 3; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+}
+
+function shuffle(array) {
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+}
+
+function saveToStorage(key, data) {
+    try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {}
+}
+
+function loadFromStorage(key) {
+    try {
+        const data = localStorage.getItem(key);
+        return data ? JSON.parse(data) : null;
+    } catch(e) { return null; }
+}
+
+function showToast(msg) {
+    const existing = document.querySelector('.toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 3000);
+}
+
+function copyToClipboard(text) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => showToast('Скопировано!'));
+    } else {
+        const input = document.createElement('input');
+        input.value = text;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        showToast('Скопировано!');
+    }
+}
+
+// ==================== FIREBASE ФУНКЦИИ ====================
+function createFirebaseRoom(roomData) {
+    return db.ref('rooms/' + roomData.code).set(roomData);
+}
+
+function listenToRoom(code, callback) {
+    if (state.unsubscribe) state.unsubscribe();
+    const ref = db.ref('rooms/' + code);
+    state.roomRef = ref;
+    state.unsubscribe = ref.on('value', (snapshot) => {
+        const data = snapshot.val();
+        if (data) callback(data);
+    });
+    return ref;
+}
+
+function updateRoom(code, updates) {
+    return db.ref('rooms/' + code).update(updates);
+}
+
+// ==================== РЕНДЕР ====================
+function render() {
+    const app = document.getElementById('app');
+    app.innerHTML = '';
+    app.className = 'container fade-in';
+
+    switch(state.currentView) {
+        case 'menu': renderMenu(app); break;
+        case 'create': renderCreate(app); break;
+        case 'join': renderJoin(app); break;
+        case 'quiz': renderQuiz(app); break;
+        case 'waiting': renderWaiting(app); break;
+        case 'results': renderResults(app); break;
+        case 'history': renderHistory(app); break;
+    }
+}
+
+function renderMenu(container) {
+    container.innerHTML = `
+        <h1>❤️ Наши Опросы</h1>
+        <p class="subtitle">Узнайте друг друга лучше через игру</p>
+
+        <div class="menu">
+            <button class="btn btn-create" onclick="goTo('create')">
+                <span>🎲</span> Создать опрос
+            </button>
+            <button class="btn btn-join" onclick="goTo('join')">
+                <span>🔗</span> Пройти опрос
+            </button>
+            <button class="btn btn-secondary" onclick="goTo('history')">
+                <span>📜</span> История опросов
+            </button>
+        </div>
+
+        <div style="margin-top: 30px; padding: 20px; background: #f8f6ff; border-radius: 12px; font-size: 0.85em; color: #666; line-height: 1.6;">
+            <strong>💡 Как это работает:</strong><br><br>
+            1. Один создаёт опрос и выбирает тему<br>
+            2. Получает код комнаты<br>
+            3. Делится кодом с партнёром<br>
+            4. Оба проходят 10 вопросов<br>
+            5. Смотрите совпадения в реальном времени!
+        </div>
+    `;
+}
+
+function renderCreate(container) {
+    container.innerHTML = `
+        <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← Назад</button>
+        <h1>🎲 Новый опрос</h1>
+        <p class="subtitle">Выберите тему</p>
+
+        <div class="name-inputs">
+            <div class="input-group">
+                <label>Твоё имя</label>
+                <input type="text" id="creatorName" placeholder="Например, Аня" value="${state.userName || ''}">
+            </div>
+            <div class="input-group">
+                <label>Имя партнёра</label>
+                <input type="text" id="partnerName" placeholder="Например, Миша" value="${state.partnerName || ''}">
+            </div>
+        </div>
+
+        <div class="theme-grid">
+            ${Object.entries(themes).map(([key, t]) => `
+                <div class="theme-btn" onclick="selectTheme('${key}')" id="theme-${key}">
+                    <span class="emoji">${t.emoji}</span>
+                    <span class="name">${t.name}</span>
+                </div>
+            `).join('')}
+        </div>
+
+        <button class="btn btn-create" onclick="createRoom()" style="margin-top: 10px;">
+            Создать комнату
+        </button>
+    `;
+}
+
+function renderJoin(container) {
+    container.innerHTML = `
+        <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← Назад</button>
+        <h1>🔗 Присоединиться</h1>
+        <p class="subtitle">Введите код комнаты</p>
+
+        <div class="input-group">
+            <label>Код комнаты</label>
+            <input type="text" id="roomCode" placeholder="ABC-DEF" style="text-transform: uppercase; letter-spacing: 4px; font-size: 1.5em; text-align: center;">
+        </div>
+
+        <div class="input-group">
+            <label>Твоё имя</label>
+            <input type="text" id="joinerName" placeholder="Твоё имя">
+        </div>
+
+        <button class="btn btn-create" onclick="joinRoom()" style="margin-top: 20px;">
+            Начать опрос
+        </button>
+    `;
+}
+
+function renderQuiz(container) {
+    const room = state.room;
+    if (!room || !room.questions[state.currentQuestion]) {
+        goTo('waiting');
+        return;
+    }
+
+    const q = room.questions[state.currentQuestion];
+    const progress = ((state.currentQuestion + 1) / room.questions.length) * 100;
+
+    container.innerHTML = `
+        <div class="progress-bar">
+            <div class="progress-fill" style="width: ${progress}%"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <span style="color: #667eea; font-weight: 600; font-size: 0.85em;">
+                ${themes[room.theme].emoji} ${themes[room.theme].name}
+            </span>
+            <span style="color: #999; font-size: 0.85em;">
+                ${state.currentQuestion + 1}/${room.questions.length}
+            </span>
+        </div>
+
+        <div class="question-card">
+            <div class="question-text">${q.q}</div>
+            <div class="options">
+                ${q.a.map((ans, idx) => `
+                    <div class="option" onclick="answer(${idx})">${ans}</div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function renderWaiting(container) {
+    const room = state.room;
+    const hasPartnerAnswered = room.answers && Object.keys(room.answers).length >= 2;
+
+    container.innerHTML = `
+        <div class="waiting-screen">
+            ${hasPartnerAnswered ? `
+                <div style="font-size: 3em; margin-bottom: 10px;">🎉</div>
+                <h2>Оба ответили!</h2>
+                <button class="btn btn-create" onclick="showResults()" style="margin-top: 20px;">
+                    Смотреть результаты
+                </button>
+            ` : `
+                <div class="spinner"></div>
+                <h2>⏳ Ждём партнёра...</h2>
+                <p style="color: #666; margin-top: 15px; font-size: 0.9em;">
+                    Поделись кодом с партнёром. Как только он ответит, вы увидите результаты!
+                </p>
+            `}
+
+            <div class="room-code" style="margin-top: 25px;">
+                <div style="color: #666; margin-bottom: 10px; font-size: 0.9em;">Код комнаты</div>
+                <div class="code-display">${room.code}</div>
+                <button class="btn btn-back" onclick="copyToClipboard('${room.code}')" style="margin-top: 15px;">
+                    📋 Скопировать код
+                </button>
+            </div>
+
+            <div class="share-section">
+                <div style="font-weight: 600; margin-bottom: 10px;">🔗 Или отправь ссылку</div>
+                <div class="share-link" onclick="copyToClipboard(this.textContent)" style="cursor: pointer;">
+                    ${window.location.origin}${window.location.pathname}?room=${room.code}
+                </div>
+                <div style="font-size: 0.8em; color: #999; margin-top: 8px;">
+                    Нажми на ссылку, чтобы скопировать
+                </div>
+            </div>
+
+            <button class="btn btn-back" onclick="checkResults()" style="margin-top: 15px;">
+                🔄 Проверить готовность
+            </button>
+        </div>
+    `;
+}
+
+function renderResults(container) {
+    const room = state.room;
+    const players = Object.keys(room.answers || {});
+
+    if (players.length < 2) {
+        container.innerHTML = `
+            <button class="btn btn-back" onclick="goTo('menu')">← В меню</button>
+            <div style="text-align: center; padding: 40px; color: #666;">
+                Партнёр ещё не ответил на вопросы...
+            </div>
+        `;
+        return;
+    }
+
+    const myAnswers = room.answers[state.userName] || [];
+    const partnerName = players.find(n => n !== state.userName) || 'Партнёр';
+    const partnerAnswers = room.answers[partnerName] || [];
+
+    let matches = 0;
+    const comparisons = [];
+
+    room.questions.forEach((q, i) => {
+        const match = myAnswers[i] === partnerAnswers[i];
+        if (match) matches++;
+        comparisons.push({
+            question: q.q,
+            myAnswer: q.a[myAnswers[i]],
+            partnerAnswer: q.a[partnerAnswers[i]],
+            match: match
+        });
+    });
+
+    const percentage = Math.round((matches / room.questions.length) * 100);
+
+    saveHistory(room, percentage, matches, room.questions.length, players);
+
+    container.innerHTML = `
+        <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← В меню</button>
+
+        <div class="results-header">
+            <div class="match-percentage">${percentage}%</div>
+            <div class="match-label">совпадений</div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <div class="stat-value">${matches}</div>
+                <div class="stat-label">Совпало</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">${room.questions.length - matches}</div>
+                <div class="stat-label">Разошлось</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">${room.questions.length}</div>
+                <div class="stat-label">Вопросов</div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <h3 style="color: #333; margin-bottom: 15px; font-size: 1.1em;">📊 Сравнение ответов</h3>
+            ${comparisons.map((c, i) => `
+                <div class="comp-item ${c.match ? 'match' : 'mismatch'}">
+                    <div class="comp-question">${i + 1}. ${c.question}</div>
+                    <div class="comp-answers">
+                        <div class="comp-answer you">${state.userName}: ${c.myAnswer}</div>
+                        <div class="comp-answer partner">${partnerName}: ${c.partnerAnswer}</div>
+                    </div>
+                    <span class="badge ${c.match ? 'match' : 'mismatch'}">
+                        ${c.match ? '✅ Совпало' : '⚠️ Разошлось'}
+                    </span>
+                </div>
+            `).join('')}
+        </div>
+
+        <div style="text-align: center; color: #666; font-size: 0.85em; margin-top: 20px; padding: 15px; background: #f8f6ff; border-radius: 12px;">
+            ${themes[room.theme].emoji} ${themes[room.theme].name} •
+            ${new Date(room.createdAt).toLocaleDateString('ru-RU')}
+        </div>
+
+        <button class="btn btn-create" onclick="goTo('create')" style="margin-top: 20px;">
+            🎲 Новый опрос
+        </button>
+    `;
+}
+
+function renderHistory(container) {
+    const history = loadFromStorage('quizHistory') || [];
+
+    container.innerHTML = `
+        <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← Назад</button>
+        <h1>📜 История</h1>
+        <p class="subtitle">Ваши пройденные опросы</p>
+
+        ${history.length === 0 ? '<p style="text-align: center; color: #999; margin-top: 40px;">Пока нет пройденных опросов</p>' : ''}
+
+        <div class="history-list">
+            ${history.slice().reverse().map((h, i) => `
+                <div class="history-item" onclick="loadHistoryRoom('${h.code}')">
+                    <div>
+                        <div style="font-weight: 600; color: #333;">
+                            ${themes[h.theme].emoji} ${themes[h.theme].name}
+                        </div>
+                        <div style="font-size: 0.8em; color: #666; margin-top: 4px;">
+                            ${new Date(h.date).toLocaleDateString('ru-RU')} • ${h.players.join(' & ')}
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 1.5em; font-weight: bold; color: #764ba2;">
+                            ${h.percentage}%
+                        </div>
+                        <div style="font-size: 0.75em; color: #666;">
+                            ${h.matches}/${h.total}
+                        </div>
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+
+        ${history.length > 0 ? `
+            <button class="btn btn-back" onclick="clearHistory()" style="width: 100%; margin-top: 20px; color: #c62828;">
+                🗑️ Очистить историю
+            </button>
+        ` : ''}
+    `;
+}
+
+// ==================== ЛОГИКА ====================
+function goTo(view) {
+    if (state.unsubscribe && view !== 'waiting' && view !== 'results') {
+        state.unsubscribe();
+        state.unsubscribe = null;
+    }
+    state.currentView = view;
+    render();
+}
+
+function selectTheme(theme) {
+    document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('selected'));
+    document.getElementById(`theme-${theme}`).classList.add('selected');
+    state.selectedTheme = theme;
+}
+
+function createRoom() {
+    const creatorName = document.getElementById('creatorName').value.trim();
+    const partnerName = document.getElementById('partnerName').value.trim();
+
+    if (!creatorName || !partnerName) {
+        showToast('Введите имена!');
+        return;
+    }
+    if (!state.selectedTheme) {
+        showToast('Выберите тему!');
+        return;
+    }
+
+    state.userName = creatorName;
+    state.partnerName = partnerName;
+
+    const allQuestions = questionDB[state.selectedTheme];
+    const selectedQuestions = shuffle(allQuestions).slice(0, 10);
+
+    const room = {
+        code: generateCode(),
+        theme: state.selectedTheme,
+        questions: selectedQuestions,
+        answers: {},
+        creator: creatorName,
+        createdAt: Date.now(),
+        status: 'waiting'
+    };
+
+    state.room = room;
+    saveToStorage('lastRoom', room.code);
+
+    // Сохраняем в Firebase
+    createFirebaseRoom(room).then(() => {
+        state.currentQuestion = 0;
+        state.answers = [];
+        state.currentView = 'quiz';
+        render();
+    }).catch(err => {
+        showToast('Ошибка создания комнаты');
+        console.error(err);
+    });
+}
+
+function joinRoom() {
+    const code = document.getElementById('roomCode').value.trim().toUpperCase();
+    const name = document.getElementById('joinerName').value.trim();
+
+    if (!code || !name) {
+        showToast('Введите код и имя!');
+        return;
+    }
+
+    // Проверяем комнату в Firebase
+    db.ref('rooms/' + code).once('value').then(snapshot => {
+        const room = snapshot.val();
+        if (!room) {
+            showToast('Комната не найдена!');
+            return;
+        }
+
+        if (room.answers && room.answers[name]) {
+            showToast('Ты уже проходил этот опрос!');
+            return;
+        }
+
+        state.room = room;
+        state.userName = name;
+        state.currentQuestion = 0;
+        state.answers = [];
+        state.currentView = 'quiz';
+        render();
+    }).catch(err => {
+        showToast('Ошибка подключения');
+        console.error(err);
+    });
+}
+
+function answer(idx) {
+    state.answers.push(idx);
+    state.currentQuestion++;
+
+    if (state.currentQuestion >= state.room.questions.length) {
+        // Сохраняем ответы в Firebase
+        const updates = {};
+        updates['answers/' + state.userName] = state.answers;
+        updates['status'] = 'completed';
+
+        updateRoom(state.room.code, updates).then(() => {
+            state.room.answers = state.room.answers || {};
+            state.room.answers[state.userName] = state.answers;
+            state.currentView = 'waiting';
+
+            // Начинаем слушать изменения
+            listenToRoom(state.room.code, (roomData) => {
+                state.room = roomData;
+                const players = Object.keys(roomData.answers || {});
+                if (players.length >= 2) {
+                    // Проверяем, все ли ответили на все вопросы
+                    const allCompleted = players.every(p => roomData.answers[p].length === roomData.questions.length);
+                    if (allCompleted && state.currentView === 'waiting') {
+                        render(); // Перерисуем с кнопкой результатов
+                    }
+                }
+            });
+
+            render();
+        }).catch(err => {
+            showToast('Ошибка сохранения');
+            console.error(err);
+        });
+    } else {
+        render();
+    }
+}
+
+function checkResults() {
+    if (!state.room) return;
+
+    db.ref('rooms/' + state.room.code).once('value').then(snapshot => {
+        const room = snapshot.val();
+        if (!room) return;
+
+        state.room = room;
+        const players = Object.keys(room.answers || {});
+        const allCompleted = players.length >= 2 && players.every(p => room.answers[p].length === room.questions.length);
+
+        if (allCompleted) {
+            state.currentView = 'results';
+            render();
+        } else {
+            showToast('Партнёр ещё не закончил...');
+        }
+    });
+}
+
+function showResults() {
+    state.currentView = 'results';
+    render();
+}
+
+function saveHistory(room, percentage, matches, total, players) {
+    const history = loadFromStorage('quizHistory') || [];
+    const exists = history.some(h => h.code === room.code && h.date === room.createdAt);
+    if (exists) return;
+
+    history.push({
+        code: room.code,
+        theme: room.theme,
+        date: room.createdAt,
+        players: players || [state.userName, state.partnerName || 'Партнёр'],
+        percentage: percentage,
+        matches: matches,
+        total: total
+    });
+
+    if (history.length > 50) history.shift();
+    saveToStorage('quizHistory', history);
+}
+
+function loadHistoryRoom(code) {
+    db.ref('rooms/' + code).once('value').then(snapshot => {
+        const room = snapshot.val();
+        if (room) {
+            state.room = room;
+            state.userName = room.creator;
+            state.currentView = 'results';
+            render();
+        } else {
+            showToast('Комната больше не существует');
+        }
+    });
+}
+
+function clearHistory() {
+    if (confirm('Очистить всю историю?')) {
+        localStorage.removeItem('quizHistory');
+        render();
+    }
+}
+
+// ==================== ИНИЦИАЛИЗАЦИЯ ====================
+// Проверяем URL параметры (если пришли по ссылке)
+window.addEventListener('DOMContentLoaded', () => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const roomCode = urlParams.get('room');
+
+    if (roomCode) {
+        document.getElementById('app').innerHTML = `
+            <div style="text-align: center; padding: 40px;">
+                <div class="spinner" style="margin: 20px auto;"></div>
+                <p>Подключаемся к комнате ${roomCode}...</p>
+            </div>
+        `;
+
+        db.ref('rooms/' + roomCode.toUpperCase()).once('value').then(snapshot => {
+            const room = snapshot.val();
+            if (room) {
+                state.room = room;
+                state.currentView = 'join';
+                // Заполним код автоматически
+                setTimeout(() => {
+                    const codeInput = document.getElementById('roomCode');
+                    if (codeInput) codeInput.value = roomCode.toUpperCase();
+                }, 100);
+                render();
+            } else {
+                showToast('Комната не найдена');
+                render();
+            }
+        }).catch(() => {
+            render();
+        });
+    } else {
+        render();
+    }
+});
+</script>
+</body>
+</html>
