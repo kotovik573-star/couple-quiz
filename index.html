@@ -6,7 +6,7 @@
     <title>❤️ Наши Опросы</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -14,7 +14,7 @@
             padding: 20px;
             color: #333;
         }
-
+        
         .container {
             max-width: 600px;
             margin: 0 auto;
@@ -23,23 +23,23 @@
             padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
-
+        
         h1 {
             text-align: center;
             color: #764ba2;
             margin-bottom: 10px;
             font-size: 1.8em;
         }
-
+        
         .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 30px;
             font-size: 0.9em;
         }
-
+        
         .menu { display: grid; gap: 15px; margin-bottom: 20px; }
-
+        
         .btn {
             padding: 18px 24px;
             border: none;
@@ -54,20 +54,20 @@
             gap: 10px;
             width: 100%;
         }
-
+        
         .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .btn-create { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
         .btn-join { background: #f0f0f0; color: #333; }
         .btn-back { background: #eee; color: #666; font-size: 0.9em; padding: 12px 20px; }
         .btn-secondary { background: #e8f5e9; color: #2e7d32; }
-
+        
         .theme-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin: 20px 0;
         }
-
+        
         .theme-btn {
             padding: 20px;
             border: 2px solid #e0e0e0;
@@ -77,16 +77,16 @@
             transition: all 0.3s;
             text-align: center;
         }
-
+        
         .theme-btn:hover, .theme-btn.selected {
             border-color: #667eea;
             background: #f8f6ff;
             transform: scale(1.02);
         }
-
+        
         .theme-btn .emoji { font-size: 2em; display: block; margin-bottom: 8px; }
         .theme-btn .name { font-weight: 600; color: #333; font-size: 0.9em; }
-
+        
         .room-code {
             background: #f8f6ff;
             border: 2px dashed #667eea;
@@ -95,7 +95,7 @@
             text-align: center;
             margin: 20px 0;
         }
-
+        
         .code-display {
             font-size: 2.2em;
             font-weight: bold;
@@ -105,9 +105,9 @@
             font-family: monospace;
             word-break: break-all;
         }
-
+        
         .input-group { margin: 20px 0; }
-
+        
         .input-group label {
             display: block;
             margin-bottom: 8px;
@@ -115,7 +115,7 @@
             color: #555;
             font-size: 0.9em;
         }
-
+        
         .input-group input {
             width: 100%;
             padding: 15px;
@@ -124,12 +124,12 @@
             font-size: 1.1em;
             transition: border-color 0.3s;
         }
-
+        
         .input-group input:focus {
             outline: none;
             border-color: #667eea;
         }
-
+        
         .question-card {
             background: #f8f9fa;
             border-radius: 16px;
@@ -137,14 +137,14 @@
             margin-bottom: 20px;
             border-left: 4px solid #667eea;
         }
-
+        
         .question-number {
             color: #667eea;
             font-weight: 600;
             font-size: 0.85em;
             margin-bottom: 10px;
         }
-
+        
         .question-text {
             font-size: 1.15em;
             font-weight: 600;
@@ -152,9 +152,9 @@
             color: #222;
             line-height: 1.4;
         }
-
+        
         .options { display: grid; gap: 10px; }
-
+        
         .option {
             padding: 16px 20px;
             border: 2px solid #e0e0e0;
@@ -165,18 +165,18 @@
             font-size: 1em;
             text-align: left;
         }
-
+        
         .option:hover {
             border-color: #667eea;
             background: #f8f6ff;
         }
-
+        
         .option.selected {
             border-color: #667eea;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
         }
-
+        
         .progress-bar {
             height: 6px;
             background: #e0e0e0;
@@ -184,16 +184,16 @@
             margin-bottom: 25px;
             overflow: hidden;
         }
-
+        
         .progress-fill {
             height: 100%;
             background: linear-gradient(90deg, #667eea, #764ba2);
             border-radius: 3px;
             transition: width 0.3s;
         }
-
+        
         .results-header { text-align: center; margin-bottom: 30px; }
-
+        
         .match-percentage {
             font-size: 3.5em;
             font-weight: bold;
@@ -202,31 +202,31 @@
             -webkit-text-fill-color: transparent;
             margin: 10px 0;
         }
-
+        
         .match-label { color: #666; font-size: 1em; }
-
+        
         .stats-grid {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
             gap: 12px;
             margin: 25px 0;
         }
-
+        
         .stat-box {
             background: #f8f6ff;
             border-radius: 12px;
             padding: 15px;
             text-align: center;
         }
-
+        
         .stat-value {
             font-size: 1.8em;
             font-weight: bold;
             color: #764ba2;
         }
-
+        
         .stat-label { color: #666; font-size: 0.8em; margin-top: 5px; }
-
+        
         .comp-item {
             background: white;
             border-radius: 16px;
@@ -235,34 +235,34 @@
             border: 2px solid #e0e0e0;
             transition: all 0.3s;
         }
-
+        
         .comp-item.match { border-color: #4caf50; background: #f1f8e9; }
         .comp-item.mismatch { border-color: #ff9800; background: #fff8e1; }
-
+        
         .comp-question {
             font-weight: 600;
             margin-bottom: 10px;
             color: #333;
             font-size: 0.95em;
         }
-
+        
         .comp-answers {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
             margin-bottom: 8px;
         }
-
+        
         .comp-answer {
             padding: 10px;
             border-radius: 8px;
             text-align: center;
             font-size: 0.85em;
         }
-
+        
         .comp-answer.you { background: #667eea; color: white; }
         .comp-answer.partner { background: #764ba2; color: white; }
-
+        
         .badge {
             display: inline-block;
             padding: 4px 12px;
@@ -270,12 +270,12 @@
             font-size: 0.75em;
             font-weight: 600;
         }
-
+        
         .badge.match { background: #4caf50; color: white; }
         .badge.mismatch { background: #ff9800; color: white; }
-
+        
         .waiting-screen { text-align: center; padding: 30px; }
-
+        
         .spinner {
             width: 50px;
             height: 50px;
@@ -285,24 +285,24 @@
             animation: spin 1s linear infinite;
             margin: 20px auto;
         }
-
+        
         @keyframes spin { to { transform: rotate(360deg); } }
-
+        
         .hidden { display: none !important; }
         .fade-in { animation: fadeIn 0.5s ease; }
-
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
+        
         .name-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             margin: 20px 0;
         }
-
+        
         .toast {
             position: fixed;
             bottom: 30px;
@@ -319,14 +319,14 @@
             max-width: 90%;
             text-align: center;
         }
-
+        
         @keyframes slideUp {
             from { transform: translateX(-50%) translateY(100px); opacity: 0; }
             to { transform: translateX(-50%) translateY(0); opacity: 1; }
         }
-
+        
         .history-list { margin-top: 20px; }
-
+        
         .history-item {
             background: white;
             border-radius: 12px;
@@ -339,12 +339,12 @@
             justify-content: space-between;
             align-items: center;
         }
-
+        
         .history-item:hover {
             border-color: #667eea;
             transform: translateX(5px);
         }
-
+        
         .share-section {
             background: #f0f0f0;
             border-radius: 12px;
@@ -352,7 +352,7 @@
             margin: 20px 0;
             text-align: center;
         }
-
+        
         .share-link {
             background: white;
             padding: 12px;
@@ -363,7 +363,7 @@
             margin: 10px 0;
             border: 1px solid #ddd;
         }
-
+        
         @media (max-width: 480px) {
             .container { padding: 20px; border-radius: 20px; }
             h1 { font-size: 1.5em; }
@@ -374,31 +374,17 @@
             .comp-answers { grid-template-columns: 1fr; }
         }
     </style>
-<base target="_blank">
 </head>
 <body>
     <div class="container" id="app"></div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
 <script>
-// ==================== FIREBASE НАСТРОЙКА ====================
-// Бесплатная база данных (Realtime Database)
-const firebaseConfig = {
-    apiKey: "AIzaSyDummyKeyForCoupleQuiz",
-    authDomain: "couple-quiz-demo.firebaseapp.com",
-    databaseURL: "https://couple-quiz-demo-default-rtdb.firebaseio.com",
-    projectId: "couple-quiz-demo",
-    storageBucket: "couple-quiz-demo.appspot.com",
-    messagingSenderId: "123456789",
-    appId: "1:123456789:web:abcdef123456"
-};
+// ==================== JSONBIN.IO НАСТРОЙКИ ====================
+// ЗАМЕНИ ЭТИ ДВЕ СТРОКИ:
+const API_KEY = '$2a$10$psVmL/C8hST9eWXy.3fTXOUlJhsRainROZeIgW4sAtQdIerl2QPSa';  // ← Вставь свой API ключ из jsonbin.io
+const BIN_ID = '6a22a745da38895dfe8bb1b2';    // ← Вставь ID бина
 
-// Инициализация Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+const JSONBIN_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
 // ==================== БАЗА ВОПРОСОВ ====================
 const questionDB = {
@@ -527,8 +513,7 @@ let state = {
     answers: [],
     userName: '',
     partnerName: '',
-    roomRef: null,
-    unsubscribe: null
+    pollInterval: null
 };
 
 // ==================== УТИЛИТЫ ====================
@@ -555,9 +540,9 @@ function saveToStorage(key, data) {
 }
 
 function loadFromStorage(key) {
-    try {
-        const data = localStorage.getItem(key);
-        return data ? JSON.parse(data) : null;
+    try { 
+        const data = localStorage.getItem(key); 
+        return data ? JSON.parse(data) : null; 
     } catch(e) { return null; }
 }
 
@@ -585,24 +570,75 @@ function copyToClipboard(text) {
     }
 }
 
-// ==================== FIREBASE ФУНКЦИИ ====================
-function createFirebaseRoom(roomData) {
-    return db.ref('rooms/' + roomData.code).set(roomData);
+// ==================== JSONBIN.IO API ====================
+async function getAllRooms() {
+    try {
+        const response = await fetch(JSONBIN_URL + '/latest', {
+            headers: { 'X-Master-Key': API_KEY }
+        });
+        const data = await response.json();
+        return data.record.rooms || {};
+    } catch (e) {
+        console.error('Error fetching rooms:', e);
+        return {};
+    }
 }
 
-function listenToRoom(code, callback) {
-    if (state.unsubscribe) state.unsubscribe();
-    const ref = db.ref('rooms/' + code);
-    state.roomRef = ref;
-    state.unsubscribe = ref.on('value', (snapshot) => {
-        const data = snapshot.val();
-        if (data) callback(data);
-    });
-    return ref;
+async function saveRoom(roomData) {
+    try {
+        const rooms = await getAllRooms();
+        rooms[roomData.code] = roomData;
+        
+        const response = await fetch(JSONBIN_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify({ rooms: rooms })
+        });
+        
+        if (!response.ok) throw new Error('Failed to save');
+        return true;
+    } catch (e) {
+        console.error('Error saving room:', e);
+        showToast('Ошибка сохранения. Проверь API ключ.');
+        return false;
+    }
 }
 
-function updateRoom(code, updates) {
-    return db.ref('rooms/' + code).update(updates);
+async function updateRoomAnswers(code, playerName, answers) {
+    try {
+        const rooms = await getAllRooms();
+        if (!rooms[code]) return false;
+        
+        if (!rooms[code].answers) rooms[code].answers = {};
+        rooms[code].answers[playerName] = answers;
+        
+        const response = await fetch(JSONBIN_URL, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Master-Key': API_KEY
+            },
+            body: JSON.stringify({ rooms: rooms })
+        });
+        
+        return response.ok;
+    } catch (e) {
+        console.error('Error updating room:', e);
+        return false;
+    }
+}
+
+async function getRoom(code) {
+    try {
+        const rooms = await getAllRooms();
+        return rooms[code] || null;
+    } catch (e) {
+        console.error('Error getting room:', e);
+        return null;
+    }
 }
 
 // ==================== РЕНДЕР ====================
@@ -610,7 +646,7 @@ function render() {
     const app = document.getElementById('app');
     app.innerHTML = '';
     app.className = 'container fade-in';
-
+    
     switch(state.currentView) {
         case 'menu': renderMenu(app); break;
         case 'create': renderCreate(app); break;
@@ -626,7 +662,7 @@ function renderMenu(container) {
     container.innerHTML = `
         <h1>❤️ Наши Опросы</h1>
         <p class="subtitle">Узнайте друг друга лучше через игру</p>
-
+        
         <div class="menu">
             <button class="btn btn-create" onclick="goTo('create')">
                 <span>🎲</span> Создать опрос
@@ -638,14 +674,14 @@ function renderMenu(container) {
                 <span>📜</span> История опросов
             </button>
         </div>
-
+        
         <div style="margin-top: 30px; padding: 20px; background: #f8f6ff; border-radius: 12px; font-size: 0.85em; color: #666; line-height: 1.6;">
             <strong>💡 Как это работает:</strong><br><br>
             1. Один создаёт опрос и выбирает тему<br>
             2. Получает код комнаты<br>
             3. Делится кодом с партнёром<br>
             4. Оба проходят 10 вопросов<br>
-            5. Смотрите совпадения в реальном времени!
+            5. Смотрите совпадения!
         </div>
     `;
 }
@@ -655,7 +691,7 @@ function renderCreate(container) {
         <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← Назад</button>
         <h1>🎲 Новый опрос</h1>
         <p class="subtitle">Выберите тему</p>
-
+        
         <div class="name-inputs">
             <div class="input-group">
                 <label>Твоё имя</label>
@@ -666,7 +702,7 @@ function renderCreate(container) {
                 <input type="text" id="partnerName" placeholder="Например, Миша" value="${state.partnerName || ''}">
             </div>
         </div>
-
+        
         <div class="theme-grid">
             ${Object.entries(themes).map(([key, t]) => `
                 <div class="theme-btn" onclick="selectTheme('${key}')" id="theme-${key}">
@@ -675,7 +711,7 @@ function renderCreate(container) {
                 </div>
             `).join('')}
         </div>
-
+        
         <button class="btn btn-create" onclick="createRoom()" style="margin-top: 10px;">
             Создать комнату
         </button>
@@ -687,17 +723,17 @@ function renderJoin(container) {
         <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← Назад</button>
         <h1>🔗 Присоединиться</h1>
         <p class="subtitle">Введите код комнаты</p>
-
+        
         <div class="input-group">
             <label>Код комнаты</label>
             <input type="text" id="roomCode" placeholder="ABC-DEF" style="text-transform: uppercase; letter-spacing: 4px; font-size: 1.5em; text-align: center;">
         </div>
-
+        
         <div class="input-group">
             <label>Твоё имя</label>
             <input type="text" id="joinerName" placeholder="Твоё имя">
         </div>
-
+        
         <button class="btn btn-create" onclick="joinRoom()" style="margin-top: 20px;">
             Начать опрос
         </button>
@@ -710,15 +746,15 @@ function renderQuiz(container) {
         goTo('waiting');
         return;
     }
-
+    
     const q = room.questions[state.currentQuestion];
     const progress = ((state.currentQuestion + 1) / room.questions.length) * 100;
-
+    
     container.innerHTML = `
         <div class="progress-bar">
             <div class="progress-fill" style="width: ${progress}%"></div>
         </div>
-
+        
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
             <span style="color: #667eea; font-weight: 600; font-size: 0.85em;">
                 ${themes[room.theme].emoji} ${themes[room.theme].name}
@@ -727,7 +763,7 @@ function renderQuiz(container) {
                 ${state.currentQuestion + 1}/${room.questions.length}
             </span>
         </div>
-
+        
         <div class="question-card">
             <div class="question-text">${q.q}</div>
             <div class="options">
@@ -742,7 +778,7 @@ function renderQuiz(container) {
 function renderWaiting(container) {
     const room = state.room;
     const hasPartnerAnswered = room.answers && Object.keys(room.answers).length >= 2;
-
+    
     container.innerHTML = `
         <div class="waiting-screen">
             ${hasPartnerAnswered ? `
@@ -758,7 +794,7 @@ function renderWaiting(container) {
                     Поделись кодом с партнёром. Как только он ответит, вы увидите результаты!
                 </p>
             `}
-
+            
             <div class="room-code" style="margin-top: 25px;">
                 <div style="color: #666; margin-bottom: 10px; font-size: 0.9em;">Код комнаты</div>
                 <div class="code-display">${room.code}</div>
@@ -766,7 +802,7 @@ function renderWaiting(container) {
                     📋 Скопировать код
                 </button>
             </div>
-
+            
             <div class="share-section">
                 <div style="font-weight: 600; margin-bottom: 10px;">🔗 Или отправь ссылку</div>
                 <div class="share-link" onclick="copyToClipboard(this.textContent)" style="cursor: pointer;">
@@ -776,7 +812,7 @@ function renderWaiting(container) {
                     Нажми на ссылку, чтобы скопировать
                 </div>
             </div>
-
+            
             <button class="btn btn-back" onclick="checkResults()" style="margin-top: 15px;">
                 🔄 Проверить готовность
             </button>
@@ -787,7 +823,7 @@ function renderWaiting(container) {
 function renderResults(container) {
     const room = state.room;
     const players = Object.keys(room.answers || {});
-
+    
     if (players.length < 2) {
         container.innerHTML = `
             <button class="btn btn-back" onclick="goTo('menu')">← В меню</button>
@@ -797,14 +833,14 @@ function renderResults(container) {
         `;
         return;
     }
-
+    
     const myAnswers = room.answers[state.userName] || [];
     const partnerName = players.find(n => n !== state.userName) || 'Партнёр';
     const partnerAnswers = room.answers[partnerName] || [];
-
+    
     let matches = 0;
     const comparisons = [];
-
+    
     room.questions.forEach((q, i) => {
         const match = myAnswers[i] === partnerAnswers[i];
         if (match) matches++;
@@ -815,19 +851,19 @@ function renderResults(container) {
             match: match
         });
     });
-
+    
     const percentage = Math.round((matches / room.questions.length) * 100);
-
+    
     saveHistory(room, percentage, matches, room.questions.length, players);
-
+    
     container.innerHTML = `
         <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← В меню</button>
-
+        
         <div class="results-header">
             <div class="match-percentage">${percentage}%</div>
             <div class="match-label">совпадений</div>
         </div>
-
+        
         <div class="stats-grid">
             <div class="stat-box">
                 <div class="stat-value">${matches}</div>
@@ -842,7 +878,7 @@ function renderResults(container) {
                 <div class="stat-label">Вопросов</div>
             </div>
         </div>
-
+        
         <div style="margin-bottom: 20px;">
             <h3 style="color: #333; margin-bottom: 15px; font-size: 1.1em;">📊 Сравнение ответов</h3>
             ${comparisons.map((c, i) => `
@@ -858,12 +894,12 @@ function renderResults(container) {
                 </div>
             `).join('')}
         </div>
-
+        
         <div style="text-align: center; color: #666; font-size: 0.85em; margin-top: 20px; padding: 15px; background: #f8f6ff; border-radius: 12px;">
-            ${themes[room.theme].emoji} ${themes[room.theme].name} •
+            ${themes[room.theme].emoji} ${themes[room.theme].name} • 
             ${new Date(room.createdAt).toLocaleDateString('ru-RU')}
         </div>
-
+        
         <button class="btn btn-create" onclick="goTo('create')" style="margin-top: 20px;">
             🎲 Новый опрос
         </button>
@@ -872,14 +908,14 @@ function renderResults(container) {
 
 function renderHistory(container) {
     const history = loadFromStorage('quizHistory') || [];
-
+    
     container.innerHTML = `
         <button class="btn btn-back" onclick="goTo('menu')" style="width: auto; margin-bottom: 15px;">← Назад</button>
         <h1>📜 История</h1>
         <p class="subtitle">Ваши пройденные опросы</p>
-
+        
         ${history.length === 0 ? '<p style="text-align: center; color: #999; margin-top: 40px;">Пока нет пройденных опросов</p>' : ''}
-
+        
         <div class="history-list">
             ${history.slice().reverse().map((h, i) => `
                 <div class="history-item" onclick="loadHistoryRoom('${h.code}')">
@@ -902,7 +938,7 @@ function renderHistory(container) {
                 </div>
             `).join('')}
         </div>
-
+        
         ${history.length > 0 ? `
             <button class="btn btn-back" onclick="clearHistory()" style="width: 100%; margin-top: 20px; color: #c62828;">
                 🗑️ Очистить историю
@@ -913,9 +949,9 @@ function renderHistory(container) {
 
 // ==================== ЛОГИКА ====================
 function goTo(view) {
-    if (state.unsubscribe && view !== 'waiting' && view !== 'results') {
-        state.unsubscribe();
-        state.unsubscribe = null;
+    if (state.pollInterval) {
+        clearInterval(state.pollInterval);
+        state.pollInterval = null;
     }
     state.currentView = view;
     render();
@@ -927,10 +963,10 @@ function selectTheme(theme) {
     state.selectedTheme = theme;
 }
 
-function createRoom() {
+async function createRoom() {
     const creatorName = document.getElementById('creatorName').value.trim();
     const partnerName = document.getElementById('partnerName').value.trim();
-
+    
     if (!creatorName || !partnerName) {
         showToast('Введите имена!');
         return;
@@ -939,13 +975,13 @@ function createRoom() {
         showToast('Выберите тему!');
         return;
     }
-
+    
     state.userName = creatorName;
     state.partnerName = partnerName;
-
+    
     const allQuestions = questionDB[state.selectedTheme];
     const selectedQuestions = shuffle(allQuestions).slice(0, 10);
-
+    
     const room = {
         code: generateCode(),
         theme: state.selectedTheme,
@@ -955,112 +991,105 @@ function createRoom() {
         createdAt: Date.now(),
         status: 'waiting'
     };
-
+    
     state.room = room;
     saveToStorage('lastRoom', room.code);
-
-    // Сохраняем в Firebase
-    createFirebaseRoom(room).then(() => {
-        state.currentQuestion = 0;
-        state.answers = [];
-        state.currentView = 'quiz';
-        render();
-    }).catch(err => {
-        showToast('Ошибка создания комнаты');
-        console.error(err);
-    });
+    
+    const saved = await saveRoom(room);
+    if (!saved) return;
+    
+    state.currentQuestion = 0;
+    state.answers = [];
+    state.currentView = 'quiz';
+    render();
 }
 
-function joinRoom() {
+async function joinRoom() {
     const code = document.getElementById('roomCode').value.trim().toUpperCase();
     const name = document.getElementById('joinerName').value.trim();
-
+    
     if (!code || !name) {
         showToast('Введите код и имя!');
         return;
     }
-
-    // Проверяем комнату в Firebase
-    db.ref('rooms/' + code).once('value').then(snapshot => {
-        const room = snapshot.val();
-        if (!room) {
-            showToast('Комната не найдена!');
-            return;
-        }
-
-        if (room.answers && room.answers[name]) {
-            showToast('Ты уже проходил этот опрос!');
-            return;
-        }
-
-        state.room = room;
-        state.userName = name;
-        state.currentQuestion = 0;
-        state.answers = [];
-        state.currentView = 'quiz';
-        render();
-    }).catch(err => {
-        showToast('Ошибка подключения');
-        console.error(err);
-    });
+    
+    const room = await getRoom(code);
+    if (!room) {
+        showToast('Комната не найдена!');
+        return;
+    }
+    
+    if (room.answers && room.answers[name]) {
+        showToast('Ты уже проходил этот опрос!');
+        return;
+    }
+    
+    state.room = room;
+    state.userName = name;
+    state.currentQuestion = 0;
+    state.answers = [];
+    state.currentView = 'quiz';
+    render();
 }
 
-function answer(idx) {
+async function answer(idx) {
     state.answers.push(idx);
     state.currentQuestion++;
-
+    
     if (state.currentQuestion >= state.room.questions.length) {
-        // Сохраняем ответы в Firebase
-        const updates = {};
-        updates['answers/' + state.userName] = state.answers;
-        updates['status'] = 'completed';
-
-        updateRoom(state.room.code, updates).then(() => {
-            state.room.answers = state.room.answers || {};
-            state.room.answers[state.userName] = state.answers;
-            state.currentView = 'waiting';
-
-            // Начинаем слушать изменения
-            listenToRoom(state.room.code, (roomData) => {
-                state.room = roomData;
-                const players = Object.keys(roomData.answers || {});
+        const saved = await updateRoomAnswers(state.room.code, state.userName, state.answers);
+        if (!saved) {
+            showToast('Ошибка сохранения ответов');
+            return;
+        }
+        
+        state.room.answers = state.room.answers || {};
+        state.room.answers[state.userName] = state.answers;
+        state.currentView = 'waiting';
+        
+        // Проверяем каждые 5 секунд
+        state.pollInterval = setInterval(async () => {
+            const room = await getRoom(state.room.code);
+            if (room) {
+                state.room = room;
+                const players = Object.keys(room.answers || {});
                 if (players.length >= 2) {
-                    // Проверяем, все ли ответили на все вопросы
-                    const allCompleted = players.every(p => roomData.answers[p].length === roomData.questions.length);
-                    if (allCompleted && state.currentView === 'waiting') {
+                    const allCompleted = players.every(p => room.answers[p].length === room.questions.length);
+                    if (allCompleted) {
+                        clearInterval(state.pollInterval);
+                        state.pollInterval = null;
                         render(); // Перерисуем с кнопкой результатов
                     }
                 }
-            });
-
-            render();
-        }).catch(err => {
-            showToast('Ошибка сохранения');
-            console.error(err);
-        });
+            }
+        }, 5000);
+        
+        render();
     } else {
         render();
     }
 }
 
-function checkResults() {
+async function checkResults() {
     if (!state.room) return;
-
-    db.ref('rooms/' + state.room.code).once('value').then(snapshot => {
-        const room = snapshot.val();
-        if (!room) return;
-
-        state.room = room;
-        const players = Object.keys(room.answers || {});
-        const allCompleted = players.length >= 2 && players.every(p => room.answers[p].length === room.questions.length);
-
-        if (allCompleted) {
-            state.currentView = 'results';
-            render();
-        } else {
-            showToast('Партнёр ещё не закончил...');
+    
+    const room = await getRoom(state.room.code);
+    if (!room) return;
+    
+    state.room = room;
+    const players = Object.keys(room.answers || {});
+    const allCompleted = players.length >= 2 && players.every(p => room.answers[p].length === room.questions.length);
+    
+    if (allCompleted) {
+        if (state.pollInterval) {
+            clearInterval(state.pollInterval);
+            state.pollInterval = null;
         }
-    });
+        state.currentView = 'results';
+        render();
+    } else {
+        showToast('Партнёр ещё не закончил...');
+    }
 }
 
 function showResults() {
@@ -1072,7 +1101,7 @@ function saveHistory(room, percentage, matches, total, players) {
     const history = loadFromStorage('quizHistory') || [];
     const exists = history.some(h => h.code === room.code && h.date === room.createdAt);
     if (exists) return;
-
+    
     history.push({
         code: room.code,
         theme: room.theme,
@@ -1082,23 +1111,21 @@ function saveHistory(room, percentage, matches, total, players) {
         matches: matches,
         total: total
     });
-
+    
     if (history.length > 50) history.shift();
     saveToStorage('quizHistory', history);
 }
 
-function loadHistoryRoom(code) {
-    db.ref('rooms/' + code).once('value').then(snapshot => {
-        const room = snapshot.val();
-        if (room) {
-            state.room = room;
-            state.userName = room.creator;
-            state.currentView = 'results';
-            render();
-        } else {
-            showToast('Комната больше не существует');
-        }
-    });
+async function loadHistoryRoom(code) {
+    const room = await getRoom(code);
+    if (room) {
+        state.room = room;
+        state.userName = room.creator;
+        state.currentView = 'results';
+        render();
+    } else {
+        showToast('Комната больше не существует');
+    }
 }
 
 function clearHistory() {
@@ -1109,11 +1136,10 @@ function clearHistory() {
 }
 
 // ==================== ИНИЦИАЛИЗАЦИЯ ====================
-// Проверяем URL параметры (если пришли по ссылке)
 window.addEventListener('DOMContentLoaded', () => {
     const urlParams = new URLSearchParams(window.location.search);
     const roomCode = urlParams.get('room');
-
+    
     if (roomCode) {
         document.getElementById('app').innerHTML = `
             <div style="text-align: center; padding: 40px;">
@@ -1121,13 +1147,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 <p>Подключаемся к комнате ${roomCode}...</p>
             </div>
         `;
-
-        db.ref('rooms/' + roomCode.toUpperCase()).once('value').then(snapshot => {
-            const room = snapshot.val();
+        
+        getRoom(roomCode.toUpperCase()).then(room => {
             if (room) {
                 state.room = room;
                 state.currentView = 'join';
-                // Заполним код автоматически
                 setTimeout(() => {
                     const codeInput = document.getElementById('roomCode');
                     if (codeInput) codeInput.value = roomCode.toUpperCase();
